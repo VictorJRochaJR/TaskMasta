@@ -13,9 +13,31 @@ namespace TaskMasta.Controllers
     public class ListsController: ControllerBase
     {
         private readonly ListsService _ls;
-        public ListsController(ListsService ls)
+        private readonly TasksService _ts;
+        public ListsController(ListsService ls, TasksService ts)
         {
             _ls = ls;
+            _ts = ts;
+        }
+        [Authorize]
+        [HttpGet("{id}/task")]
+        public async Task<ActionResult<List<Models.Task>>> GetAllTasksByListId(int id)
+        {
+
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+               
+               List<Models.Task> tasks = _ts.GetTasksByListId(id, userInfo.Id);
+                return Ok(tasks);
+        
+                
+            }
+            catch (System.Exception e)
+            {
+                
+                return BadRequest(e.Message);
+            }
         }
         [Authorize]
         [HttpGet("{id}")]
@@ -37,6 +59,7 @@ namespace TaskMasta.Controllers
                 return BadRequest(e.Message);
             }
         }
+
 
         [Authorize]
         [HttpPost]

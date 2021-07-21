@@ -26,3 +26,11 @@ FOREIGN KEY(listId) REFERENCES List(id) ON DELETE CASCADE
                         FROM List l
                         JOIN  Accounts a ON l.creatorId = a.id
                         WHERE l.creatorId = @id;
+
+                        SELECT * FROM Task WHERE listId = @id;
+
+
+                         SELECT * FROM Task WHERE listId = @id AND creatorId = @userId;
+
+
+                         SELECT * FROM Task WHERE ListId = 1 AND creatorId = '60f5e47037da3afb720feef4';
