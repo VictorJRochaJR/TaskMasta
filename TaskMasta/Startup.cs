@@ -42,6 +42,8 @@ namespace TaskMasta
             
             services.AddScoped<AccountsRepository>();
             services.AddScoped<AccountService>();
+            services.AddTransient<ListsRepository>();
+            services.AddTransient<ListsService>();
         }
 
         private void ConfigureCors(IServiceCollection services)
